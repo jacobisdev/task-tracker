@@ -1,5 +1,5 @@
 import { exitError } from './modules/exit.js';
-import { addTask, updtTask } from './modules/taskFunctions.js';
+import { addTask, updtTask, delTask } from './modules/taskFunctions.js';
 
 const options = process.argv.slice(2);
 
@@ -17,6 +17,10 @@ if (options[0] === 'add' && options.length === 2) {
   const description = options[2];
 
   updtTask(id, description);
+} else if (options[0] === 'delete' && options.length === 2) {
+  const id = +options[1];
+
+  delTask(id);
 }
 else {
   exitError();
