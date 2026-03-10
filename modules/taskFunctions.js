@@ -19,10 +19,22 @@ export const addTask = async (description) => {
 }
 
 export const updtTask = async (id, description) => {
+  let taskFounded = false;
   const updatedTasks = tasks.map((task) => {
-    if (task.id === id) task.description = description;
+    if (task.id === id) {
+      task.description = description
+      taskFounded = true;
+    }
+  
     return task;
   })
-    
+
+  if (!taskFounded) {
+    console.log(`The task (ID: ${id}) wasn't found`);
+    return;
+  }
+
   writeFile(filePath, JSON.stringify(updatedTasks), { flag: 'w' });
+
+  console.log(`Task updated successfully`);
 }
