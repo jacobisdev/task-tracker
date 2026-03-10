@@ -8,12 +8,12 @@ export const getData = async (path) => {
     data = await readFile(path, 'utf-8');
   } catch(err) {
     if (err.code === 'ENOENT') {
-      await writeFile(path, '[]', (err) => {
-        if (err) {
-          console.error(err_msg);
-          return;
-        }
-      });
+      try {
+        await writeFile(path, '[]');
+      } catch (err) {
+        console.error(err_msg);
+        return;
+      }
       data = await readFile(path, 'utf-8');
     } else {
       console.error(err_msg);

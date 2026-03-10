@@ -7,7 +7,7 @@ export const addTask = async (path, tasks, description) => {
   const status = 'todo'
 
   tasks.push(new Task(id, description, status));
-  writeFile(path, JSON.stringify(tasks), { flag: 'r+' });
+  writeFile(path, JSON.stringify(tasks), { flag: 'w' });
 
   console.log(`Task added successfully (ID: ${id})`);
 }
