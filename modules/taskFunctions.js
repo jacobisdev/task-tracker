@@ -19,17 +19,17 @@ export const addTask = async (description) => {
 }
 
 export const updtTask = async (id, description) => {
-  let taskFounded = false;
+  let taskFound = false;
   const updatedTasks = tasks.map((task) => {
     if (task.id === id) {
       task.description = description
-      taskFounded = true;
+      taskFound = true;
     }
   
     return task;
   })
 
-  if (!taskFounded) {
+  if (!taskFound) {
     console.log(`The task (ID: ${id}) wasn't found`);
     return;
   }
