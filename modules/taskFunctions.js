@@ -26,23 +26,21 @@ export const updtTask = (id, description) => {
       task.description = description
       taskFound = true;
     }
-  
     return task;
   })
 
   if (!taskFound) {
-    console.log(`The task (ID: ${id}) wasn't found`);
+    console.log(`Task not found (ID: ${id})`);
     return;
   }
   writeFile(filePath, JSON.stringify(updatedTasks), { flag: 'w' });
 
-  console.log(`Task updated successfully`);
+  console.log(`Task updated successfully (ID: ${id})`);
 }
 
 export const delTask = (id) => {
   // TODO: Substract 1 to every task id if the deleted task wasn't the lastest (investigate if that's a good idea)
   let taskFound = false;
-
   const updatedTasks = tasks.filter((task) => {
     if (task.id !== id) {
       return task;
@@ -51,8 +49,10 @@ export const delTask = (id) => {
   })
 
   if (!taskFound) {
-    console.log(`The task (ID: ${id}) wasn't found`);
+    console.log(`Task not found (ID: ${id})`);
     return;
   }
   writeFile(filePath, JSON.stringify(updatedTasks), { flag: 'w' });
+
+  console.log(`Task deleted successfully (ID: ${id})`)
 }
