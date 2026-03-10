@@ -56,3 +56,8 @@ export const delTask = (id) => {
 
   console.log(`Task deleted successfully (ID: ${id})`)
 }
+
+export const listTasks = (status) => {
+  console.log(tasks)
+
+}
