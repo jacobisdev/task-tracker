@@ -13,7 +13,7 @@ if (options[0] === 'add' && options.length === 2) {
   
   addTask(description);
 } else if (options[0] === 'update' && options.length === 3) {
-  const id = options[1];
+  const id = +options[1];
   const description = options[2];
 
   updtTask(id, description);
