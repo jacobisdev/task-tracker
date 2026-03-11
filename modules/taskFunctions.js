@@ -6,9 +6,10 @@ const filePath = './data.json';
 const data = await getData(filePath);
 const tasks = (data) ? JSON.parse(data) : []; 
 
+
 export const add = async (description) => {
-  const duplicate = tasks.find(t => 
-    t.description.toLowerCase() === description.toLowerCase()
+  const duplicate = tasks.find(task => 
+    task.description.toLowerCase() === description.toLowerCase()
   );
   
   if (duplicate) {
@@ -26,6 +27,7 @@ export const add = async (description) => {
   console.log(`Task added successfully! (ID: ${id})`);
 }
 
+
 export const update = async (id, description) => {
   const updatedTasks = tasks.map((task) => 
     task.id === id
@@ -33,33 +35,34 @@ export const update = async (id, description) => {
       : task
   )
 
-  const taskFound = updatedTasks.some(t => t.id === id);
+  const taskFound = updatedTasks.some(task => task.id === id);
   if (!taskFound) {
     console.warn(`Task not found (ID: ${id})`);
     return;
   }
-  await writeFile(filePath, JSON.stringify(updatedTasks), { flag: 'w' });
+  await writeFile(filePath, JSON.stringify(updatedTasks));
 
   console.log(`Task updated successfully! (ID: ${id})`);
 }
 
-export const del = async (id) => {
-  let taskFound = false;
-  const updatedTasks = tasks.filter((task) => {
-    if (task.id !== id) {
-      return task;
-    }
-    taskFound = true;
-  })
 
+export const del = async (id) => {
+  const updatedTasks = tasks.map((task) => 
+    task.id === id
+    ? {...task, status: 'deleted', deletetAt: new Date()}
+    : task
+  )
+
+  const taskFound = updatedTasks.some(task => task.id === id);
   if (!taskFound) {
     console.warn(`Task not found (ID: ${id})`);
     return;
   }
-  await writeFile(filePath, JSON.stringify(updatedTasks), { flag: 'w' });
+  await writeFile(filePath, JSON.stringify(updatedTasks));
 
   console.log(`Task deleted successfully (ID: ${id})`)
 }
+
 
 export const list = (status) => {
   let taskList;
