@@ -7,7 +7,13 @@ const data = await getData(filePath);
 const tasks = (data) ? JSON.parse(data) : []; 
 
 export const add = (description) => {
-  // TODO: Handle duplicates
+  const taskExists = tasks.some(task => task.description === description);
+  if (taskExists) {
+    const currID = tasks.findIndex(task => task.description === description);
+    console.log(`Task already exists at (ID: ${currID})`);
+    return;
+  }
+  
   const lastId = tasks.at(-1)?.id ?? 0;
   const id = lastId + 1;
   const status = 'todo'
