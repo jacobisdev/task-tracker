@@ -7,10 +7,12 @@ const data = await getData(filePath);
 const tasks = (data) ? JSON.parse(data) : []; 
 
 export const add = (description) => {
-  const taskIndex = tasks.findIndex(task => task.description === description);
-  if (taskIndex !== -1) {
-    const taskId = tasks[taskIndex].id;
-    console.log(`Task already exists (ID: ${taskId})`);
+  const duplicate = tasks.find(t => 
+    t.description.toLowerCase() === description.toLowerCase()
+  );
+  
+  if (duplicate) {
+    console.log(`Task already exists (ID: ${duplicate.id})`);
     return;
   }
 
@@ -25,7 +27,6 @@ export const add = (description) => {
 }
 
 export const update = (id, description) => {
-  // TODO: Don't update the task when a task with that description already exists.
   let taskFound = false;
   const updatedTasks = tasks.map((task) => {
     if (task.id === id) {
@@ -46,7 +47,6 @@ export const update = (id, description) => {
 }
 
 export const del = (id) => {
-  // TODO: Substract 1 to every task id if the deleted task wasn't the latest (investigate if that's a good idea)
   let taskFound = false;
   const updatedTasks = tasks.filter((task) => {
     if (task.id !== id) {
