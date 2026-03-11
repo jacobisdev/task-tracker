@@ -6,7 +6,7 @@ const filePath = './data.json';
 const data = await getData(filePath);
 const tasks = (data) ? JSON.parse(data) : []; 
 
-export const addTask = (description) => {
+export const add = (description) => {
   // TODO: Handle duplicates
   const lastId = tasks.at(-1)?.id ?? 0;
   const id = lastId + 1;
@@ -18,7 +18,7 @@ export const addTask = (description) => {
   console.log(`Task added successfully (ID: ${id})`);
 }
 
-export const updtTask = (id, description) => {
+export const update = (id, description) => {
   // TODO: Don't update the task when a task with that description already exists.
   let taskFound = false;
   const updatedTasks = tasks.map((task) => {
@@ -38,7 +38,7 @@ export const updtTask = (id, description) => {
   console.log(`Task updated successfully (ID: ${id})`);
 }
 
-export const delTask = (id) => {
+export const del = (id) => {
   // TODO: Substract 1 to every task id if the deleted task wasn't the lastest (investigate if that's a good idea)
   let taskFound = false;
   const updatedTasks = tasks.filter((task) => {
@@ -57,7 +57,7 @@ export const delTask = (id) => {
   console.log(`Task deleted successfully (ID: ${id})`)
 }
 
-export const listTasks = (status) => {
+export const list = (status) => {
   console.log(tasks)
 
 }
