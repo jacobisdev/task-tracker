@@ -9,8 +9,8 @@ const tasks = (data) ? JSON.parse(data) : [];
 export const add = (description) => {
   const taskIndex = tasks.findIndex(task => task.description === description);
   if (taskIndex !== -1) {
-    const id = tasks[taskIndex].id;
-    console.log(`Task already exists (ID: ${id})`);
+    const taskId = tasks[taskIndex].id;
+    console.log(`Task already exists (ID: ${taskId})`);
     return;
   }
 
