@@ -22,15 +22,17 @@ if (options[0] === 'add' && options.length === 2) {
 
   tasks.del(id);
 } else if (options[0] === 'list' && (options.length === 1 || options.length === 2)) {
-  const status = options[1] ?? 'all';
-  const validStatuses = ['all', 'todo', 'in-progress', 'done'];
+  const status = options[1] ?? 'default';
+  const validStatuses = ['default', 'all', 'todo', 'in-progress', 'done', 'deleted'];
 
   if (validStatuses.includes(status)) {
     tasks.list(status);
   } else {
     exitError();
   }
-}
-else {
+} else if (options[0] === 'mark') {
+  // TODO: mark logic
+  // TODO: restore tasks from trash with mark
+} else {
   exitError();
 }
