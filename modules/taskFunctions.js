@@ -20,11 +20,11 @@ export const add = (description) => {
 
 export const update = (id, description) => {
   // TODO: Don't update the task when a task with that description already exists.
-  // TODO: Update the updatedAt field
   let taskFound = false;
   const updatedTasks = tasks.map((task) => {
     if (task.id === id) {
       task.description = description
+      task.updatedAt = new Date();
       taskFound = true;
     }
     return task;
@@ -82,8 +82,8 @@ export const list = (status) => {
     const id = task.id;
     const desc = task.description;
     const stat = task.status;
-    const createdAt = new Date(task.createdAt).toLocaleDateString();
-    const updatedAt = new Date(task.updatedAt).toLocaleDateString();
+    const createdAt = new Date(task.createdAt).toLocaleString();
+    const updatedAt = new Date(task.updatedAt).toLocaleString();
 
     console.log(`${id} ${desc} ${stat} ${createdAt} ${updatedAt}`);
   });
