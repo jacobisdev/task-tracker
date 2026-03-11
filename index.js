@@ -23,8 +23,13 @@ if (options[0] === 'add' && options.length === 2) {
   tasks.del(id);
 } else if (options[0] === 'list' && (options.length === 1 || options.length === 2)) {
   const status = options[1] ?? 'all';
+  const validStatuses = ['all', 'todo', 'in-progress', 'done'];
 
-  tasks.list(status);
+  if (validStatuses.includes(status)) {
+    tasks.list(status);
+  } else {
+    exitError();
+  }
 }
 else {
   exitError();

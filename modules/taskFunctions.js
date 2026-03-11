@@ -20,6 +20,7 @@ export const add = (description) => {
 
 export const update = (id, description) => {
   // TODO: Don't update the task when a task with that description already exists.
+  // TODO: Update the updatedAt field
   let taskFound = false;
   const updatedTasks = tasks.map((task) => {
     if (task.id === id) {
@@ -58,6 +59,33 @@ export const del = (id) => {
 }
 
 export const list = (status) => {
-  console.log(tasks)
+  let taskList;
 
+  switch(status) {
+    case 'all':
+      taskList = tasks;
+      break;
+    case 'todo':
+      taskList = tasks.filter((task) => task.status === 'todo');
+      break;
+    case 'in-progress':
+      taskList = tasks.filter((task) => task.status === 'in-progress');
+      break;
+    case 'done':
+      taskList = tasks.filter((task) => task.status === 'done');
+      break;
+  }
+
+  console.log('---------------   Tasks   ---------------');
+  console.log('ID Description Status Created Updated');
+  taskList.forEach(task => {
+    const id = task.id;
+    const desc = task.description;
+    const stat = task.status;
+    const createdAt = new Date(task.createdAt).toLocaleDateString();
+    const updatedAt = new Date(task.updatedAt).toLocaleDateString();
+
+    console.log(`${id} ${desc} ${stat} ${createdAt} ${updatedAt}`);
+  });
+  // console.table(taskList)
 }
