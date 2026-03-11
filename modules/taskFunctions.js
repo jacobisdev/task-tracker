@@ -39,7 +39,7 @@ export const update = (id, description) => {
 }
 
 export const del = (id) => {
-  // TODO: Substract 1 to every task id if the deleted task wasn't the lastest (investigate if that's a good idea)
+  // TODO: Substract 1 to every task id if the deleted task wasn't the latest (investigate if that's a good idea)
   let taskFound = false;
   const updatedTasks = tasks.filter((task) => {
     if (task.id !== id) {
