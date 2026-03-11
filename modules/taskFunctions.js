@@ -12,7 +12,7 @@ export const add = async (description) => {
   );
   
   if (duplicate) {
-    console.log(`Task already exists (ID: ${duplicate.id})`);
+    console.warn(`Task already exists (ID: ${duplicate.id})`);
     return;
   }
 
@@ -21,29 +21,26 @@ export const add = async (description) => {
   const status = 'todo';
 
   tasks.push(new Task(id, description, status));
-  await writeFile(filePath, JSON.stringify(tasks), { flag: 'w' });
+  await writeFile(filePath, JSON.stringify(tasks));
 
-  console.log(`Task added successfully (ID: ${id})`);
+  console.log(`Task added successfully! (ID: ${id})`);
 }
 
 export const update = async (id, description) => {
-  let taskFound = false;
-  const updatedTasks = tasks.map((task) => {
-    if (task.id === id) {
-      task.description = description
-      task.updatedAt = new Date();
-      taskFound = true;
-    }
-    return task;
-  })
+  const updatedTasks = tasks.map((task) => 
+    task.id === id
+      ? {...task, description, updatedAt: new Date()}
+      : task
+  )
 
+  const taskFound = updatedTasks.some(t => t.id === id);
   if (!taskFound) {
-    console.log(`Task not found (ID: ${id})`);
+    console.warn(`Task not found (ID: ${id})`);
     return;
   }
   await writeFile(filePath, JSON.stringify(updatedTasks), { flag: 'w' });
 
-  console.log(`Task updated successfully (ID: ${id})`);
+  console.log(`Task updated successfully! (ID: ${id})`);
 }
 
 export const del = async (id) => {
@@ -56,7 +53,7 @@ export const del = async (id) => {
   })
 
   if (!taskFound) {
-    console.log(`Task not found (ID: ${id})`);
+    console.warn(`Task not found (ID: ${id})`);
     return;
   }
   await writeFile(filePath, JSON.stringify(updatedTasks), { flag: 'w' });
