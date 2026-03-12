@@ -35,13 +35,20 @@ if (options[0] === 'add' && options.length === 2) {
   ]
 
   if (validStatuses.includes(status)) {
-    tasks.list(status)
+    tasks.list(status)``
   } else {
     exitError()
   }
-} else if (options[0] === 'mark') {
-  // TODO: mark logic
-  // TODO: restore tasks from trash with mark
+} else if (options[0] === 'mark' && options.length === 3) {
+  const id = +options[1]
+  const status = options[2]
+  const validStatuses = ['todo', 'in-progress', 'done']
+
+  if (validStatuses.includes(status)) {
+    tasks.mark(id, status)
+  } else {
+    exitError()
+  }
 } else {
   exitError()
 }

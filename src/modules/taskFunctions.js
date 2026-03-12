@@ -27,15 +27,16 @@ export const add = async (description) => {
 }
 
 export const update = async (id, description) => {
-  const updatedTasks = tasks.map((task) =>
-    task.id === id ? { ...task, description, updatedAt: new Date() } : task,
-  )
-
-  const taskFound = updatedTasks.some((task) => task.id === id)
+  const taskFound = tasks.some((task) => task.id === id)
   if (!taskFound) {
     console.warn(`Task not found (ID: ${id})`)
     return
   }
+
+  const updatedTasks = tasks.map((task) =>
+    task.id === id ? { ...task, description, updatedAt: new Date() } : task,
+  )
+
   await writeFile(filePath, JSON.stringify(updatedTasks))
 
   console.log(`Task updated successfully! (ID: ${id})`)
@@ -96,7 +97,11 @@ function logList(status, list) {
   const includeDeleted = status === 'deleted'
 
   const maxId = list.at(-1).id.toString().length + 1
-  const maxDesc = Math.max(...list.map((task) => task.description.length)) + 1
+  const maxDesc =
+    Math.max(
+      'description'.length,
+      ...list.map((task) => task.description.length),
+    ) + 1
   const maxStatus = 'in-progress'.length + 1
   const maxDate = '11/11/1111, 11:11:11 AM'.length
 
@@ -127,4 +132,20 @@ function logList(status, list) {
 
     console.log(taskItem)
   })
+}
+
+export const mark = async (id, status) => {
+  const taskFound = tasks.some((task) => task.id === id)
+  if (!taskFound) {
+    console.warn(`Task not found (ID: ${id})`)
+    return
+  }
+
+  const updatedTasks = tasks.map((task) =>
+    task.id === id ? { ...task, status, updatedAt: new Date() } : task,
+  )
+
+  await writeFile(filePath, JSON.stringify(updatedTasks))
+
+  console.log(`Task marked successfully (ID: ${id})`)
 }
