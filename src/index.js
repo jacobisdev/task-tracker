@@ -7,26 +7,30 @@ if (options.length < 1) {
   exitError()
 }
 
-if (options[0] === 'add' && options.length === 2) {
+const validAdd = options[0] === 'add' && options.length === 2
+const validUpdate = options[0] === 'update' && options.length === 3
+const validDelete = options[0] === 'delete' && options.length === 2
+const validList =
+  options[0] === 'list' && (options.length === 1 || options.length === 2)
+const validMark = options[0] === 'mark' && options.length === 3
+
+if (validAdd) {
   const description = options[1]
 
   tasks.add(description)
-} else if (options[0] === 'update' && options.length === 3) {
+} else if (validUpdate) {
   const id = +options[1]
   const description = options[2]
 
   tasks.update(id, description)
-} else if (options[0] === 'delete' && options.length === 2) {
+} else if (validDelete) {
   const id = +options[1]
 
   tasks.del(id)
-} else if (
-  options[0] === 'list' &&
-  (options.length === 1 || options.length === 2)
-) {
-  const status = options[1] ?? 'default'
+} else if (validList) {
+  const status = options[1]
   const validStatuses = [
-    'default',
+    undefined,
     'all',
     'todo',
     'in-progress',
@@ -39,7 +43,7 @@ if (options[0] === 'add' && options.length === 2) {
   } else {
     exitError()
   }
-} else if (options[0] === 'mark' && options.length === 3) {
+} else if (validMark) {
   const id = +options[1]
   const status = options[2]
   const validStatuses = ['todo', 'in-progress', 'done']
