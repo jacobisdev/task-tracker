@@ -35,7 +35,7 @@ if (options[0] === 'add' && options.length === 2) {
   ]
 
   if (validStatuses.includes(status)) {
-    tasks.list(status)``
+    tasks.list(status)
   } else {
     exitError()
   }
