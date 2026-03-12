@@ -4,14 +4,13 @@ import Task from './task.js';
 
 const filePath = './data.json';
 const data = await getData(filePath);
-const tasks = (data) ? JSON.parse(data) : []; 
-
+const tasks = data ? JSON.parse(data) : [];
 
 export const add = async (description) => {
-  const duplicate = tasks.find(task => 
-    task.description.toLowerCase() === description.toLowerCase()
+  const duplicate = tasks.find(
+    (task) => task.description.toLowerCase() === description.toLowerCase(),
   );
-  
+
   if (duplicate) {
     console.warn(`Task already exists (ID: ${duplicate.id})`);
     return;
@@ -25,17 +24,14 @@ export const add = async (description) => {
   await writeFile(filePath, JSON.stringify(tasks));
 
   console.log(`Task added successfully! (ID: ${id})`);
-}
-
+};
 
 export const update = async (id, description) => {
-  const updatedTasks = tasks.map((task) => 
-    task.id === id
-      ? {...task, description, updatedAt: new Date()}
-      : task
-  )
+  const updatedTasks = tasks.map((task) =>
+    task.id === id ? { ...task, description, updatedAt: new Date() } : task,
+  );
 
-  const taskFound = updatedTasks.some(task => task.id === id);
+  const taskFound = updatedTasks.some((task) => task.id === id);
   if (!taskFound) {
     console.warn(`Task not found (ID: ${id})`);
     return;
@@ -43,31 +39,29 @@ export const update = async (id, description) => {
   await writeFile(filePath, JSON.stringify(updatedTasks));
 
   console.log(`Task updated successfully! (ID: ${id})`);
-}
-
+};
 
 export const del = async (id) => {
-  const updatedTasks = tasks.map((task) => 
+  const updatedTasks = tasks.map((task) =>
     task.id === id
-    ? {...task, status: 'deleted', deletedAt: new Date()}
-    : task
-  )
+      ? { ...task, status: 'deleted', deletedAt: new Date() }
+      : task,
+  );
 
-  const taskFound = updatedTasks.some(task => task.id === id);
+  const taskFound = updatedTasks.some((task) => task.id === id);
   if (!taskFound) {
     console.warn(`Task not found (ID: ${id})`);
     return;
   }
   await writeFile(filePath, JSON.stringify(updatedTasks));
 
-  console.log(`Task deleted successfully (ID: ${id})`)
-}
-
+  console.log(`Task deleted successfully (ID: ${id})`);
+};
 
 export const list = (status) => {
   let taskList;
 
-  switch(status) {
+  switch (status) {
     case 'all':
       taskList = tasks;
       break;
@@ -85,18 +79,20 @@ export const list = (status) => {
       break;
     case 'default':
     default:
-      taskList = tasks.filter((task) => task.status !== 'done' && task.status !== 'deleted');
+      taskList = tasks.filter(
+        (task) => task.status !== 'done' && task.status !== 'deleted',
+      );
       break;
   }
 
   logList(status, taskList);
-}
+};
 
 function logList(status, list) {
   const includeDeleted = status === 'all' || status === 'deleted';
-  
+
   const maxId = list.at(-1).id.toString().length + 1;
-  const maxDesc = Math.max(...list.map(task => task.description.length))  + 1;
+  const maxDesc = Math.max(...list.map((task) => task.description.length)) + 1;
   const maxStatus = 'in-progress'.length + 1;
   const maxDate = '11/11/1111, 11:11:11 AM'.length;
 
@@ -112,19 +108,19 @@ function logList(status, list) {
   console.log();
   console.log(header);
 
-  list.forEach(task => {
+  list.forEach((task) => {
     const id = task.id.toString().padEnd(maxId);
     const desc = task.description.padEnd(maxDesc);
     const stat = task.status.padEnd(maxStatus);
     const created = new Date(task.createdAt).toLocaleString().padEnd(maxDate);
     const updated = new Date(task.updatedAt).toLocaleString().padEnd(maxDate);
-    
+
     let taskItem = `${id} ${desc} ${stat} ${created} ${updated}`;
-    if (includeDeleted && task.deletedAt)  {
+    if (includeDeleted && task.deletedAt) {
       const deleted = new Date(task.deletedAt).toLocaleString().padEnd(maxDate);
       taskItem += ` ${deleted}`;
     }
-    
+
     console.log(taskItem);
   });
 }
