@@ -4,7 +4,7 @@ import * as tasks from './modules/taskFunctions.js'
 // Get user arguments
 const options = process.argv.slice(2)
 
-// Exit on not argument provided
+// Exit if no argument is provided
 if (options.length < 1) {
   exitError()
 }
