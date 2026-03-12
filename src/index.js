@@ -20,11 +20,14 @@ if (validAdd) {
   tasks.add(description)
 } else if (validUpdate) {
   const id = +options[1]
+  if (!Number.isInteger(id)) exitError()
+
   const description = options[2]
 
   tasks.update(id, description)
 } else if (validDelete) {
   const id = +options[1]
+  if (!Number.isInteger(id)) exitError()
 
   tasks.del(id)
 } else if (validList) {
@@ -45,6 +48,8 @@ if (validAdd) {
   }
 } else if (validMark) {
   const id = +options[1]
+  if (!Number.isInteger(id)) exitError()
+    
   const status = options[2]
   const validStatuses = ['todo', 'in-progress', 'done']
 
