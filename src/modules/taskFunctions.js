@@ -68,7 +68,7 @@ export const list = (status) => {
 
   switch (status) {
     case 'all':
-      taskList = tasks
+      taskList = tasks.filter((task) => task.status !== 'deleted')
       break
     case 'todo':
       taskList = tasks.filter((task) => task.status === 'todo')
@@ -93,7 +93,7 @@ export const list = (status) => {
 }
 
 function logList(status, list) {
-  const includeDeleted = status === 'all' || status === 'deleted'
+  const includeDeleted = status === 'deleted'
 
   const maxId = list.at(-1).id.toString().length + 1
   const maxDesc = Math.max(...list.map((task) => task.description.length)) + 1
