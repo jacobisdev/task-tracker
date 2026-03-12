@@ -2,7 +2,7 @@ import { writeFile } from 'node:fs/promises'
 import { getData } from './getData.js'
 import Task from './task.js'
 
-const filePath = './data.json'
+const filePath = './src/data.json'
 const data = await getData(filePath)
 const tasks = data ? JSON.parse(data) : []
 
@@ -61,6 +61,11 @@ export const del = async (id) => {
 export const list = (status) => {
   let taskList
 
+  if (!tasks[0]) {
+    console.log('No task were found')
+    return
+  }
+
   switch (status) {
     case 'all':
       taskList = tasks
@@ -77,7 +82,6 @@ export const list = (status) => {
     case 'deleted':
       taskList = tasks.filter((task) => task.status === 'deleted')
       break
-    case 'default':
     default:
       taskList = tasks.filter(
         (task) => task.status !== 'done' && task.status !== 'deleted',
