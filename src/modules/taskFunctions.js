@@ -59,7 +59,7 @@ export const del = async (id) => {
   console.log(`Task deleted successfully (ID: ${id})`)
 }
 
-export const list = (status) => {
+export const list = (filter) => {
   let taskList
 
   if (!tasks[0]) {
@@ -67,7 +67,7 @@ export const list = (status) => {
     return
   }
 
-  switch (status) {
+  switch (filter) {
     case 'all':
       taskList = tasks.filter((task) => task.status !== 'deleted')
       break
@@ -90,11 +90,16 @@ export const list = (status) => {
       break
   }
 
-  logList(status, taskList)
+  if (!taskList[0]) {
+    console.log('No task were found')
+    return
+  }
+
+  logList(filter, taskList)
 }
 
-function logList(status, list) {
-  const includeDeleted = status === 'deleted'
+function logList(filter, list) {
+  const includeDeleted = filter === 'deleted'
 
   const maxId = list.at(-1).id.toString().length + 1
   const maxDesc =
