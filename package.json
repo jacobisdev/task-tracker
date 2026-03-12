@@ -4,7 +4,10 @@
   "description": "A CLI application designed for efficient task management.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "biome format --write .",
+    "lint": "biome lint --write .",
+    "check": "biome check --write ."
   },
   "repository": {
     "type": "git",
@@ -19,6 +22,7 @@
   },
   "homepage": "https://github.com/jacobisdev/task-tracker#readme",
   "devDependencies": {
+    "@biomejs/biome": "2.4.6",
     "@types/node": "^25.4.0"
   }
 }
