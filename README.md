@@ -2,6 +2,8 @@
 
 A CLI application designed for efficient task management.
 
+> I built this CLI application as part of the Backend developer roadmap from [roadmap.sh](https://roadmap.sh/projects/task-tracker)
+
 ## Features
 
 - Add new tasks with  a description
