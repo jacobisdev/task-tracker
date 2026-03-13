@@ -45,6 +45,12 @@ node src/index.js <command> [options]
 node src/index.js <command> [options]
 ```
 
+### Uninstall
+```bash
+# Uninstall globally this app
+npm uninstall -g task-tracker
+```
+
 ### Commands
 
 | Command | Description |
