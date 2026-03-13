@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { exitError } from './modules/exit.js'
 import * as tasks from './modules/taskFunctions.js'
 

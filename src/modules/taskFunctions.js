@@ -164,14 +164,20 @@ function logList(filter, list) {
     const id = task.id.toString().padEnd(maxId)
     const desc = task.description.padEnd(maxDesc)
     const stat = task.status.padEnd(maxStatus)
-    const created = new Date(task.createdAt).toLocaleString().padEnd(maxDate)
-    const updated = new Date(task.updatedAt).toLocaleString().padEnd(maxDate)
+    const created = new Date(task.createdAt)
+      .toLocaleDateString()
+      .padEnd(maxDate)
+    const updated = new Date(task.updatedAt)
+      .toLocaleDateString()
+      .padEnd(maxDate)
 
     let taskItem = `${id} ${desc} ${stat} ${created} ${updated}`
 
     // Incorporate the deletion date into task to be printed
     if (includeDeleted && task.deletedAt) {
-      const deleted = new Date(task.deletedAt).toLocaleString().padEnd(maxDate)
+      const deleted = new Date(task.deletedAt)
+        .toLocaleDateString()
+        .padEnd(maxDate)
       taskItem += ` ${deleted}`
     }
 

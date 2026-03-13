@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A CLI application designed for efficient task management.",
   "main": "index.js",
+  "bin": {
+    "task": "./src/index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "biome format --write .",
