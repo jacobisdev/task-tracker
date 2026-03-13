@@ -137,7 +137,7 @@ function logList(filter, list) {
       ...list.map((task) => task.description.length),
     ) + 1
   const maxStatus = 'in-progress'.length + 1
-  const maxDate = '11/11/1111, 11:11:11 AM'.length
+  const maxDate = '11/11/1111'.length
 
   // Define the table header
   let header = `${'id'.padEnd(maxId)} ${'Description'.padEnd(maxDesc)} ${'Status'.padEnd(maxStatus)} ${'Created'.padEnd(maxDate)} ${'Updated'.padEnd(maxDate)}`
